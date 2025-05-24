@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Kubusieq's Python Project Showcase</title>
+
+
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap " rel="stylesheet">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background-image: url('main_background.png');
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: center;
+      background-color: black;
+      color: white;
+      font-family: 'Press Start 2P', monospace;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      min-height: 100vh;
+      padding: 40px 20px;
+      overflow-x: hidden;
+    }
+
+    h1 {
+      font-size: 16px;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    .section-title {
+      font-size: 14px;
+      margin-bottom: 10px;
+      letter-spacing: 1px;
+    }
+
+    .form-container {
+      background-image: url('window.png');
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: center;
+      width: 90%;
+      max-width: 500px;
+      padding: 30px;
+      position: relative;
+      border-radius: 12px;
+      box-shadow: 0 0 10px rgb(0, 183, 255);
+      margin-bottom: 40px;
+    }
+
+    .form-container::before {
+      content: '';
+      position: absolute;
+      top: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 40px;
+      height: 20px;
+      background-image: url('Social_Interactions_Mute_Button.png');
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
+    }
+
+    input[type="text"],
+    textarea {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      border: 2px solid #00b7ff;
+      border-radius: 4px;
+      background-color: rgba(0, 0, 0, 0.7);
+      color: white;
+      font-family: 'Press Start 2P', monospace;
+      font-size: 10px;
+      resize: none;
+    }
+
+    button {
+      background-color: #00b7ff;
+      color: black;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-family: 'Press Start 2P', monospace;
+      font-size: 10px;
+      transition: all 0.3s ease;
+    }
+
+    button:hover {
+      transform: scale(1.05);
+    }
+
+    .comments-section {
+      width: 90%;
+      max-width: 500px;
+      background-color: rgba(10, 10, 10, 0.8);
+      border: 2px solid #00b7ff;
+      border-radius: 8px;
+      padding: 20px;
+      margin-bottom: 40px;
+    }
+
+    .comment {
+      font-size: 10px;
+      margin-bottom: 10px;
+      line-height: 1.4;
+    }
+
+    .about-me {
+      width: 90%;
+      max-width: 600px;
+      background-image: url('Main_background.png');
+      background-size: cover;
+      background-position: center;
+      border: 2px solid #00b7ff;
+      border-radius: 8px;
+      padding: 20px;
+      box-shadow: 0 0 10px rgb(0, 183, 255);
+    }
+
+    .back-button {
+      display: inline-block;
+      background-color: #00b7ff;
+      color: black;
+      padding: 10px 20px;
+      margin-top: 20px;
+      font-size: 10px;
+      text-decoration: none;
+      border-radius: 4px;
+      font-family: 'Press Start 2P', monospace;
+      box-shadow: 0 0 8px rgb(0, 183, 255);
+      transition: transform 0.2s ease;
+    }
+
+    .back-button:hover {
+      transform: scale(1.05);
+    }
+
+    .about-me p,
+    .about-me ul {
+      font-size: 10px;
+      margin-top: 10px;
+      line-height: 1.5;
+    }
+
+    .about-me ul {
+      padding-left: 20px;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-5px); }
+    }
+
+    .floating {
+      animation: float 3s ease-in-out infinite;
+    }
+  </style>
+</head>
+<body>
+
+  <h1 class="floating">🐍 KUBUSIEQ’S PYTHON PROJECTS</h1>
+
+
+  <div class="form-container floating">
+    <h2 class="section-title">Wpisz swój komentarz</h2>
+    <input type="text" id="nickname" placeholder="Nick" required />
+    <textarea id="comment" placeholder="Twój komentarz..." rows="4" required></textarea>
+    <button onclick="submitComment()">Wyślij</button>
+  </div>
+
+
+  <div class="comments-section">
+    <h2 class="section-title">Komentarze:</h2>
+    <div id="comments"></div>
+  </div>
+
+  <div class="about-me floating">
+    <h2 class="section-title">O MNIE</h2>
+    <p>
+      Programuję w Pythonie od 3 lat. Moimi większymi projektami są:
+    </p>
+    <ul>
+      <li><strong>Flashback</strong>: Aplikacja, która pokazuje klipy z przed 60 sekund.</li>
+      <li><strong>ArchPlay</strong>: Odtwarzacz muzyki z własnymi funkcjami.</li
+    </ul>
+  </div>
+
+  <a href="index.html" class="back-button">⬅️ POWRÓT</a>
+
+  <script>
+    let comments = [];
+
+    function submitComment() {
+      const nickname = document.getElementById('nickname').value.trim();
+      const comment = document.getElementById('comment').value.trim();
+
+      if (!nickname || !comment) {
+        alert("Proszę wprowadzić nick i komentarz.");
+        return;
+      }
+
+
+      const badWords = ["dupa", "kurwa", "chuj", "pieprz"];
+      const filteredComment = comment.split(/\b/).map(word =>
+        badWords.includes(word.toLowerCase()) ? word.replace(/[aeiou]/gi, '*') : word
+      ).join('');
+
+      comments.push({ nickname, comment: filteredComment });
+
+      updateCommentsDisplay();
+
+      document.getElementById('nickname').value = '';
+      document.getElementById('comment').value = '';
+    }
+
+    function updateCommentsDisplay() {
+      const commentsDiv = document.getElementById('comments');
+      commentsDiv.innerHTML = '';
+
+      comments.forEach(c => {
+        const el = document.createElement('div');
+        el.className = 'comment';
+        el.textContent = `${c.nickname}: ${c.comment}`;
+        commentsDiv.appendChild(el);
+      });
+    }
+  </script>
+
+</body>
+</html>
